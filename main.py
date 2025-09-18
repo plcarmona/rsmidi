@@ -263,7 +263,7 @@ class SynthesiaClone:
                         if n.start_time <= self.current_time <= n.start_time + n.duration + 0.5]
         
         for note in current_notes:
-            if note.note_number == note_number and not note.hit:
+            if note.note == note_number and not note.hit:
                 note.hit = True
                 self.score += 100
                 self.notes_hit += 1
@@ -319,7 +319,7 @@ class SynthesiaClone:
             # Only draw notes that are visible
             if -self.note_height <= note_y <= canvas_height:
                 # Calculate note X position based on note number
-                note_x = self.get_note_x_position(note.note_number, canvas_width)
+                note_x = self.get_note_x_position(note.note, canvas_width)
                 
                 # Choose color based on note state
                 if note.hit:
