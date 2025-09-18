@@ -1,0 +1,102 @@
+{
+  "title": "Untitled Project",
+  "tempo": 120,
+  "time_signature": [
+    4,
+    4
+  ],
+  "tracks": [
+    {
+      "name": "Piano",
+      "instrument": 0,
+      "volume": 100,
+      "pan": 64,
+      "notes": [
+        {
+          "note": 60,
+          "start_time": 0.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 64,
+          "start_time": 0.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 67,
+          "start_time": 0.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 57,
+          "start_time": 1.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 60,
+          "start_time": 1.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 64,
+          "start_time": 1.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 53,
+          "start_time": 2.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 57,
+          "start_time": 2.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 60,
+          "start_time": 2.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 55,
+          "start_time": 3.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 59,
+          "start_time": 3.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        },
+        {
+          "note": 62,
+          "start_time": 3.0,
+          "duration": 1.0,
+          "velocity": 80,
+          "channel": 0
+        }
+      ]
+    }
+  ]
+}
