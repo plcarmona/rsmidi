@@ -48,9 +48,10 @@ class SynthesiaClone:
         self.notes_hit = 0
         self.notes_missed = 0
         
-        # Piano configuration
-        self.octave_start = 3  # Starting octave (C3)
-        self.octave_count = 3  # Number of octaves to display
+        # Piano configuration - Full 88-key piano (A0 to C8)
+        # Standard 88-key piano starts at A0 (note 21) and ends at C8 (note 108)
+        self.piano_start_note = 21  # A0
+        self.piano_end_note = 108   # C8
         self.keys = self.create_piano_keys()
         
         # Visual settings
@@ -62,23 +63,18 @@ class SynthesiaClone:
         self.create_sample_song()
         
     def create_piano_keys(self):
-        """Create the piano key configuration"""
+        """Create the full 88-key piano configuration (A0 to C8)"""
         keys = []
-        white_keys = [0, 2, 4, 5, 7, 9, 11]  # C, D, E, F, G, A, B
-        black_keys = [1, 3, 6, 8, 10]  # C#, D#, F#, G#, A#
         
-        for octave in range(self.octave_count):
-            base_note = (self.octave_start + octave) * 12
-            
-            # Add white keys
-            for key in white_keys:
-                keys.append(PianoKey(base_note + key, False))
-            
-            # Add black keys
-            for key in black_keys:
-                keys.append(PianoKey(base_note + key, True))
+        # Standard 88-key piano layout
+        # MIDI notes 21 (A0) to 108 (C8)
+        for note_number in range(self.piano_start_note, self.piano_end_note + 1):
+            # Determine if it's a black key based on note position within octave
+            note_in_octave = note_number % 12
+            is_black = note_in_octave in [1, 3, 6, 8, 10]  # C#, D#, F#, G#, A#
+            keys.append(PianoKey(note_number, is_black))
         
-        return sorted(keys, key=lambda k: k.note_number)
+        return keys
     
     def setup_ui(self):
         """Initialize the user interface"""
@@ -154,19 +150,33 @@ class SynthesiaClone:
         self.update_game()
         
     def create_sample_song(self):
-        """Create a sample song for demonstration"""
-        # Simple melody: C-D-E-F-G-A-B-C
-        base_notes = [60, 62, 64, 65, 67, 69, 71, 72]  # C4 to C5
+        """Create a sample song for demonstration using the full piano range"""
+        # Sample melody that demonstrates the wider range of the 88-key piano
+        melody_notes = [
+            # Lower register
+            48, 50, 52, 53,  # C3-F3
+            # Middle register  
+            60, 62, 64, 65, 67, 69, 71, 72,  # C4-C5
+            # Higher register
+            72, 74, 76, 77, 79, 81  # C5-A5
+        ]
         
         self.notes = []
-        for i, note in enumerate(base_notes):
-            start_time = i * 0.8  # 0.8 seconds apart
-            self.notes.append(MIDINote(note, 80, start_time, 0.5))
+        for i, note in enumerate(melody_notes):
+            start_time = i * 0.6  # 0.6 seconds apart
+            self.notes.append(MIDINote(note, 80, start_time, 0.4))
         
-        # Add some chords
-        chord_notes = [60, 64, 67]  # C major chord
-        for note in chord_notes:
-            self.notes.append(MIDINote(note, 60, 8.0, 1.0))
+        # Add some bass notes (lower piano range)
+        bass_notes = [36, 41, 43]  # C2, F2, G2
+        for i, note in enumerate(bass_notes):
+            start_time = i * 2.0 + 1.0
+            self.notes.append(MIDINote(note, 70, start_time, 1.5))
+        
+        # Add some treble notes (higher piano range)
+        treble_notes = [84, 88, 91]  # C6, E6, G6
+        for i, note in enumerate(treble_notes):
+            start_time = i * 1.5 + 10.0
+            self.notes.append(MIDINote(note, 65, start_time, 0.8))
     
     def load_song(self):
         """Load a song from a JSON file"""
@@ -224,20 +234,53 @@ class SynthesiaClone:
     
     def key_press(self, event):
         """Handle key press events"""
+        # Extended key mapping for more keys on the full 88-key piano
+        # Focus on the middle register (around C4) for main gameplay
         key_map = {
+            # Lower octave (C3-B3)
+            'z': 48,  # C3
+            'x': 50,  # D3
+            'c': 52,  # E3
+            'v': 53,  # F3
+            'b': 55,  # G3
+            'n': 57,  # A3
+            'm': 59,  # B3
+            # Black keys for lower octave
+            's': 49,  # C#3
+            'd': 51,  # D#3
+            'g': 54,  # F#3
+            'h': 56,  # G#3
+            'j': 58,  # A#3
+            
+            # Middle octave (C4-B4) - primary playing range
             'a': 60,  # C4
-            's': 62,  # D4
-            'd': 64,  # E4
-            'f': 65,  # F4
-            'g': 67,  # G4
-            'h': 69,  # A4
-            'j': 71,  # B4
-            'k': 72,  # C5
-            'w': 61,  # C#4
-            'e': 63,  # D#4
-            't': 66,  # F#4
-            'y': 68,  # G#4
-            'u': 70,  # A#4
+            'q': 62,  # D4
+            'w': 64,  # E4
+            'e': 65,  # F4
+            'r': 67,  # G4
+            't': 69,  # A4
+            'y': 71,  # B4
+            # Black keys for middle octave
+            '2': 61,  # C#4
+            '3': 63,  # D#4
+            '5': 66,  # F#4
+            '6': 68,  # G#4
+            '7': 70,  # A#4
+            
+            # Upper octave (C5-B5)
+            'u': 72,  # C5
+            'i': 74,  # D5
+            'o': 76,  # E5
+            'p': 77,  # F5
+            '[': 79,  # G5
+            ']': 81,  # A5
+            '\\': 83, # B5
+            # Black keys for upper octave
+            '9': 73,  # C#5
+            '0': 75,  # D#5
+            '=': 78,  # F#5
+            'l': 80,  # G#5
+            ';': 82,  # A#5
         }
         
         note_num = key_map.get(event.char)
@@ -308,13 +351,23 @@ class SynthesiaClone:
         self.draw_time_line(canvas_width, canvas_height)
     
     def draw_falling_notes(self, canvas_width, canvas_height):
-        """Draw the falling notes"""
+        """Draw the falling notes with reversed behavior for hit notes"""
         piano_y = canvas_height - self.piano_height
         
         for note in self.notes:
             # Calculate note position
             time_diff = note.start_time - self.current_time
-            note_y = piano_y + time_diff * self.note_speed
+            
+            if note.hit:
+                # Hit notes move upward from piano to top of screen
+                hit_time = self.current_time - note.start_time
+                note_y = piano_y - hit_time * self.note_speed
+                # Only show hit notes for a short time as they move up
+                if note_y < -self.note_height:
+                    continue
+            else:
+                # Regular falling notes (move down toward piano)
+                note_y = piano_y + time_diff * self.note_speed
             
             # Only draw notes that are visible
             if -self.note_height <= note_y <= canvas_height:
@@ -323,7 +376,7 @@ class SynthesiaClone:
                 
                 # Choose color based on note state
                 if note.hit:
-                    color = '#4CAF50'  # Green for hit notes
+                    color = '#4CAF50'  # Green for hit notes moving up
                 elif note.active:
                     color = '#f44336'  # Red for missed notes
                 elif note.start_time <= self.current_time <= note.start_time + note.duration:
@@ -339,10 +392,10 @@ class SynthesiaClone:
                 )
     
     def draw_piano(self, canvas_width, canvas_height):
-        """Draw the piano keyboard"""
+        """Draw the full 88-key piano keyboard"""
         piano_y = canvas_height - self.piano_height
         
-        # Calculate key dimensions
+        # Calculate key dimensions for 88 keys
         white_key_count = sum(1 for k in self.keys if not k.is_black)
         if white_key_count == 0:
             return
@@ -375,18 +428,23 @@ class SynthesiaClone:
                 note_in_octave = key.note_number % 12
                 if note_in_octave in black_key_pattern:
                     # Calculate position relative to white keys
-                    octave_start = (key.note_number // 12 - self.octave_start) * 7
+                    # Count white keys before this black key
+                    white_keys_before = 0
+                    for check_note in range(self.piano_start_note, key.note_number):
+                        if check_note % 12 not in [1, 3, 6, 8, 10]:  # if it's a white key
+                            white_keys_before += 1
                     
+                    # Position black key relative to white keys
                     if note_in_octave == 1:  # C#
-                        x = (octave_start + 0.7) * white_key_width
+                        x = (white_keys_before - 0.3) * white_key_width
                     elif note_in_octave == 3:  # D#
-                        x = (octave_start + 1.7) * white_key_width
+                        x = (white_keys_before - 0.3) * white_key_width
                     elif note_in_octave == 6:  # F#
-                        x = (octave_start + 3.7) * white_key_width
+                        x = (white_keys_before - 0.3) * white_key_width
                     elif note_in_octave == 8:  # G#
-                        x = (octave_start + 4.7) * white_key_width
+                        x = (white_keys_before - 0.3) * white_key_width
                     elif note_in_octave == 10:  # A#
-                        x = (octave_start + 5.7) * white_key_width
+                        x = (white_keys_before - 0.3) * white_key_width
                     else:
                         continue
                     
@@ -415,22 +473,26 @@ class SynthesiaClone:
             if key.note_number == note_number:
                 return key.x_pos
         
-        # Fallback calculation if key not found
+        # Fallback calculation for notes outside the piano range
+        # This handles any edge cases where notes might be outside 88-key range
         white_key_count = sum(1 for k in self.keys if not k.is_black)
         if white_key_count == 0:
             return canvas_width / 2
             
+        # If note is outside piano range, place it proportionally
+        if note_number < self.piano_start_note:
+            return 0
+        elif note_number > self.piano_end_note:
+            return canvas_width
+        
+        # Calculate relative position for any MIDI note
+        white_keys_before = 0
+        for check_note in range(self.piano_start_note, min(note_number + 1, self.piano_end_note + 1)):
+            if check_note % 12 not in [1, 3, 6, 8, 10]:  # if it's a white key
+                white_keys_before += 1
+        
         white_key_width = canvas_width / white_key_count
-        relative_note = note_number - (self.octave_start * 12)
-        octave = relative_note // 12
-        note_in_octave = relative_note % 12
-        
-        white_key_positions = {0: 0, 2: 1, 4: 2, 5: 3, 7: 4, 9: 5, 11: 6}
-        if note_in_octave in white_key_positions:
-            white_key_index = octave * 7 + white_key_positions[note_in_octave]
-            return white_key_index * white_key_width + white_key_width / 2
-        
-        return canvas_width / 2
+        return white_keys_before * white_key_width
     
     def update_score_display(self):
         """Update the score and progress displays"""
@@ -477,13 +539,21 @@ if __name__ == "__main__":
     
     # Start the application
     app = SynthesiaClone()
-    print("Synthesia Clone - Piano Learning Application")
-    print("=" * 50)
+    print("🎹 Synthesia Clone - Full 88-Key Piano Learning Application 🎹")
+    print("=" * 65)
+    print("Features:")
+    print("  ✨ Full 88-key piano (A0 to C8)")
+    print("  ✨ Enhanced visual feedback - hit notes shoot upward!")
+    print("  ✨ Extended keyboard mapping across 3 octave ranges")
+    print()
     print("Controls:")
-    print("  Piano Keys (White): a s d f g h j k")
-    print("  Piano Keys (Black): w e t y u")
+    print("  Lower Octave:  z x c v b n m  (white)  |  s d g h j  (black)")
+    print("  Middle Octave: a q w e r t y  (white)  |  2 3 5 6 7  (black)")
+    print("  Upper Octave:  u i o p [ ] \\  (white)  |  9 0 = l ;  (black)")
+    print()
+    print("Game Controls:")
     print("  Play/Pause: Click the Play button")
     print("  Stop: Click the Stop button")
     print("  Load Song: Click 'Load Song' to load a JSON file")
-    print("=" * 50)
+    print("=" * 65)
     app.run()
