@@ -1,0 +1,77 @@
+{
+  "title": "Simple Chord Progression (C-Am-F-G)",
+  "notes": [
+    {
+      "note": 60,
+      "start_time": 0.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 64,
+      "start_time": 0.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 67,
+      "start_time": 0.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 57,
+      "start_time": 2.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 60,
+      "start_time": 2.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 64,
+      "start_time": 2.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 53,
+      "start_time": 4.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 57,
+      "start_time": 4.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 60,
+      "start_time": 4.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 55,
+      "start_time": 6.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 59,
+      "start_time": 6.0,
+      "duration": 2.0,
+      "velocity": 80
+    },
+    {
+      "note": 62,
+      "start_time": 6.0,
+      "duration": 2.0,
+      "velocity": 80
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "title": "C Major Scale",
+  "notes": [
+    {
+      "note": 60,
+      "start_time": 0.0,
+      "duration": 0.4,
+      "velocity": 80
+    },
+    {
+      "note": 62,
+      "start_time": 0.5,
+      "duration": 0.4,
+      "velocity": 80
+    },
+    {
+      "note": 64,
+      "start_time": 1.0,
+      "duration": 0.4,
+      "velocity": 80
+    },
+    {
+      "note": 65,
+      "start_time": 1.5,
+      "duration": 0.4,
+      "velocity": 80
+    },
+    {
+      "note": 67,
+      "start_time": 2.0,
+      "duration": 0.4,
+      "velocity": 80
+    },
+    {
+      "note": 69,
+      "start_time": 2.5,
+      "duration": 0.4,
+      "velocity": 80
+    },
+    {
+      "note": 71,
+      "start_time": 3.0,
+      "duration": 0.4,
+      "velocity": 80
+    },
+    {
+      "note": 72,
+      "start_time": 3.5,
+      "duration": 0.4,
+      "velocity": 80
+    }
+  ]
+}
