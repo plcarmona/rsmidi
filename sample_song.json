@@ -1,0 +1,18 @@
+{
+  "title": "Sample Song - Mary Had a Little Lamb",
+  "notes": [
+    {"note": 64, "start_time": 0.0, "duration": 0.5, "velocity": 80},
+    {"note": 62, "start_time": 0.5, "duration": 0.5, "velocity": 80},
+    {"note": 60, "start_time": 1.0, "duration": 0.5, "velocity": 80},
+    {"note": 62, "start_time": 1.5, "duration": 0.5, "velocity": 80},
+    {"note": 64, "start_time": 2.0, "duration": 0.5, "velocity": 80},
+    {"note": 64, "start_time": 2.5, "duration": 0.5, "velocity": 80},
+    {"note": 64, "start_time": 3.0, "duration": 1.0, "velocity": 80},
+    {"note": 62, "start_time": 4.5, "duration": 0.5, "velocity": 80},
+    {"note": 62, "start_time": 5.0, "duration": 0.5, "velocity": 80},
+    {"note": 62, "start_time": 5.5, "duration": 1.0, "velocity": 80},
+    {"note": 64, "start_time": 7.0, "duration": 0.5, "velocity": 80},
+    {"note": 67, "start_time": 7.5, "duration": 0.5, "velocity": 80},
+    {"note": 67, "start_time": 8.0, "duration": 1.0, "velocity": 80}
+  ]
+}
